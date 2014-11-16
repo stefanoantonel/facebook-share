@@ -1,0 +1,7 @@
+{
+  "name": "facebook-share#gh-pages",
+  "private": true,
+  "dependencies": {
+    "facebook-share": "kunalnagar/facebook-share#master"
+  }
+}
