@@ -1,6 +1,6 @@
 {
     "name": "facebook-share",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         "Kunal Nagar <knlnagar@gmail.com>"
     ],
@@ -20,7 +20,8 @@
         "/tests/"
     ],
     "dependencies": {
-        "polymer": "Polymer/polymer#^0.4.2"
+        "polymer": "Polymer/polymer#^1.2.4",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.20"
     },
     "devDependencies": {
         "web-component-tester": "Polymer/web-component-tester#^0.7.3"

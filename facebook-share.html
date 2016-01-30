@@ -39,7 +39,7 @@ __For the official Facebook documentation, please visit this [link](https://deve
 ******
 
 -->
-<polymer-element name="facebook-share" attributes="type appid pageurl layout">
+<dom-module id="facebook-share">
     <template>
         <!-- HTML5 -->
         <div id="fbsharehtml5">
@@ -56,90 +56,96 @@ __For the official Facebook documentation, please visit this [link](https://deve
         </div>
     </template>
     <script>
-    Polymer({
-        /**
-         * Type of Facebook Share Button
-         *
-         * Values: `html5` | `xfbml` | `iframe`
-         *
-         * @attribute type
-         * @type string
-         * @default html5
-         */
-        type: 'html5',
+      (function() {
+        'use strict';
 
-        /**
-         * Facebook APP ID
-         *
-         * @attribute appid
-         * @type string
-         */
-        appid: '266086456917866',
+        Polymer({
+          is: 'facebook-share',
 
-        /**
-         * The absolute URL of the page that will be shared.
-         *
-         * @attribute pageurl
-         * @type string
-         */
-        pageurl: 'https://developers.facebook.com/docs/plugins/',
-
-        /**
-         * Selects one of the different layouts that are available for the plugin.
-         *
-         * Values: `box_count` | `button_count` | `button` | `link` | `icon_link` | `icon`
-         *
-         * @attribute layout
-         * @type string
-         * @default icon_link
-         */
-        layout: 'icon_link',
-
-        renderFacebookShare: function() {
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-            switch (this.type) {
-                case 'html5':
-                    console.log('html5');
-                    var container = this.$.fbsharehtml5,
-                        that = this;
-                    window.fbAsyncInit = function() {
-                        FB.init({
-                            appId: that.appid,
-                            xfbml: true,
-                            version: 'v2.1'
-                        });
-                        FB.XFBML.parse(container);
-                    }
-                    break;
-                case 'xfbml':
-                    console.log('xfbml');
-                    var container = this.$.fbsharexfbml,
-                        that = this;
-                    window.fbAsyncInit = function() {
-                        FB.init({
-                            appId: that.appid,
-                            xfbml: true,
-                            version: 'v2.1'
-                        });
-                        FB.XFBML.parse(container);
-                    }
-                    break;
-                case 'iframe':
-                    this.$.fbshareiframe.style.display = 'block';
-                    break;
+          properties: {
+            lang: {
+              type: String,
+              value: 'en',
+              notify: true
+            },
+            type: {
+              /**
+              * Type of Facebook Share Button
+              * Values: `html5` | `xfbml` | `iframe`
+              */
+              type: String,
+              value: 'html5'
+            },
+            appid: {
+              /**
+              * Facebook APP ID
+              */
+              type: String,
+              value: '266086456917866'
+            },
+            pageurl: {
+              /**
+              * The absolute URL of the page that will be shared.
+              */
+              type: String,
+              value: 'https://developers.facebook.com/docs/plugins/'
+            },
+            layout: {
+              /**
+              * Selects one of the different layouts that are available for the plugin.
+              * Values: `box_count` | `button_count` | `button` | `link` | `icon_link` | `icon`
+              */
+              type: String,
+              value: 'icon_link'
             }
-        },
-        ready: function() {
+          },
+
+          renderFacebookShare: function() {
+              (function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s);
+                  js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js";
+                  fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+              switch (this.type) {
+                  case 'html5':
+                      console.log('html5');
+                      var container = this.$.fbsharehtml5,
+                          that = this;
+                      window.fbAsyncInit = function() {
+                          FB.init({
+                              appId: that.appid,
+                              xfbml: true,
+                              version: 'v2.1'
+                          });
+                          FB.XFBML.parse(container);
+                      }
+                      break;
+                  case 'xfbml':
+                      console.log('xfbml');
+                      var container = this.$.fbsharexfbml,
+                          that = this;
+                      window.fbAsyncInit = function() {
+                          FB.init({
+                              appId: that.appid,
+                              xfbml: true,
+                              version: 'v2.1'
+                          });
+                          FB.XFBML.parse(container);
+                      }
+                      break;
+                  case 'iframe':
+                      this.$.fbshareiframe.style.display = 'block';
+                      break;
+              }
+          },
+          ready: function() {
             this.$.fbshareiframe.style.display = 'none';
             this.async(this.renderFacebookShare, null, 1000);
-        }
-    });
+          }
+        });
+      })();
     </script>
-</polymer-element>
+</dom-module>
